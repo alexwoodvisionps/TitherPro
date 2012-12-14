@@ -1,0 +1,6 @@
+C:\Users\User\documents\visual studio 2010\Projects\Woodensoft.Tither\Woodensoft.TitherPro.Domain\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\User\documents\visual studio 2010\Projects\Woodensoft.Tither\Woodensoft.TitherPro.Domain\bin\Debug\Woodensoft.TitherPro.Domain.dll.config
+C:\Users\User\documents\visual studio 2010\Projects\Woodensoft.Tither\Woodensoft.TitherPro.Domain\bin\Debug\Woodensoft.TitherPro.Domain.dll
+C:\Users\User\documents\visual studio 2010\Projects\Woodensoft.Tither\Woodensoft.TitherPro.Domain\bin\Debug\Woodensoft.TitherPro.Domain.pdb
+C:\Users\User\documents\visual studio 2010\Projects\Woodensoft.Tither\Woodensoft.TitherPro.Domain\obj\Debug\Woodensoft.TitherPro.Domain.dll
+C:\Users\User\documents\visual studio 2010\Projects\Woodensoft.Tither\Woodensoft.TitherPro.Domain\obj\Debug\Woodensoft.TitherPro.Domain.pdb

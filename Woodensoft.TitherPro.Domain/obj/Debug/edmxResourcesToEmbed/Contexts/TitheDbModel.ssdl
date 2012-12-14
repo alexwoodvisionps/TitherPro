@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="TitheDBModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+  <EntityContainer Name="TitheDBModelStoreContainer">
+    <EntitySet Name="TitheLogs" EntityType="TitheDBModel.Store.TitheLogs" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Tither" EntityType="TitheDBModel.Store.Tither" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Users" EntityType="TitheDBModel.Store.Users" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="FK__TitheLogs__Tithe__08EA5793" Association="TitheDBModel.Store.FK__TitheLogs__Tithe__08EA5793">
+      <End Role="Tither" EntitySet="Tither" />
+      <End Role="TitheLogs" EntitySet="TitheLogs" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="TitheLogs">
+    <Key>
+      <PropertyRef Name="TitheLogId" />
+    </Key>
+    <Property Name="TitheLogId" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="TitheDate" Type="datetime" Nullable="false" />
+    <Property Name="DateEntered" Type="datetime" Nullable="false" />
+    <Property Name="TitheAmount" Type="decimal" Nullable="false" Precision="7" Scale="2" />
+    <Property Name="TitherId" Type="int" />
+  </EntityType>
+  <EntityType Name="Tither">
+    <Key>
+      <PropertyRef Name="TitherId" />
+    </Key>
+    <Property Name="TitherId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="LastName" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="FirstName" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="MiddleName" Type="varchar" MaxLength="100" />
+    <Property Name="DateJoined" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Users">
+    <Key>
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="UserId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Username" Type="varchar" Nullable="false" MaxLength="20" />
+    <Property Name="Password" Type="varchar" Nullable="false" MaxLength="20" />
+    <Property Name="IsAdmin" Type="bit" Nullable="false" />
+    <Property Name="Active" Type="bit" Nullable="false" />
+  </EntityType>
+  <Association Name="FK__TitheLogs__Tithe__08EA5793">
+    <End Role="Tither" Type="TitheDBModel.Store.Tither" Multiplicity="0..1" />
+    <End Role="TitheLogs" Type="TitheDBModel.Store.TitheLogs" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tither">
+        <PropertyRef Name="TitherId" />
+      </Principal>
+      <Dependent Role="TitheLogs">
+        <PropertyRef Name="TitherId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

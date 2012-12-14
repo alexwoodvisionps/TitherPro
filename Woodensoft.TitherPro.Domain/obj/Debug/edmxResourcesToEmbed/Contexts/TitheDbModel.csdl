@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="TitheDBModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+  <EntityContainer Name="TitheDBEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="TitheLogs" EntityType="TitheDBModel.TitheLog" />
+    <EntitySet Name="Tithers" EntityType="TitheDBModel.Tither" />
+    <AssociationSet Name="FK__TitheLogs__Tithe__08EA5793" Association="TitheDBModel.FK__TitheLogs__Tithe__08EA5793">
+      <End Role="Tither" EntitySet="Tithers" />
+      <End Role="TitheLogs" EntitySet="TitheLogs" />
+    </AssociationSet>
+    <EntitySet Name="Users" EntityType="TitheDBModel.User" />
+  </EntityContainer>
+  <EntityType Name="TitheLog">
+    <Key>
+      <PropertyRef Name="TitheLogId" />
+    </Key>
+    <Property Name="TitheLogId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TitheDate" Type="DateTime" Nullable="false" />
+    <Property Name="DateEntered" Type="DateTime" Nullable="false" />
+    <Property Name="TitheAmount" Type="Decimal" Nullable="false" Precision="7" Scale="2" />
+    <Property Name="TitherId" Type="Int32" />
+    <NavigationProperty Name="Tither" Relationship="TitheDBModel.FK__TitheLogs__Tithe__08EA5793" FromRole="TitheLogs" ToRole="Tither" />
+  </EntityType>
+  <EntityType Name="Tither">
+    <Key>
+      <PropertyRef Name="TitherId" />
+    </Key>
+    <Property Name="TitherId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="LastName" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="FirstName" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="MiddleName" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+    <Property Name="DateJoined" Type="DateTime" Nullable="false" />
+    <NavigationProperty Name="TitheLogs" Relationship="TitheDBModel.FK__TitheLogs__Tithe__08EA5793" FromRole="Tither" ToRole="TitheLogs" />
+  </EntityType>
+  <Association Name="FK__TitheLogs__Tithe__08EA5793">
+    <End Role="Tither" Type="TitheDBModel.Tither" Multiplicity="0..1" />
+    <End Role="TitheLogs" Type="TitheDBModel.TitheLog" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tither">
+        <PropertyRef Name="TitherId" />
+      </Principal>
+      <Dependent Role="TitheLogs">
+        <PropertyRef Name="TitherId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Type="Int32" Name="UserId" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="String" Name="Username" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="Password" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Type="Boolean" Name="IsAdmin" Nullable="false" />
+    <Property Type="Boolean" Name="Active" Nullable="false" />
+  </EntityType>
+</Schema>

@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="TitheDBModelStoreContainer" CdmEntityContainer="TitheDBEntities">
+    <EntitySetMapping Name="TitheLogs">
+      <EntityTypeMapping TypeName="TitheDBModel.TitheLog">
+        <MappingFragment StoreEntitySet="TitheLogs">
+          <ScalarProperty Name="TitheLogId" ColumnName="TitheLogId" />
+          <ScalarProperty Name="TitheDate" ColumnName="TitheDate" />
+          <ScalarProperty Name="DateEntered" ColumnName="DateEntered" />
+          <ScalarProperty Name="TitheAmount" ColumnName="TitheAmount" />
+          <ScalarProperty Name="TitherId" ColumnName="TitherId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Tithers">
+      <EntityTypeMapping TypeName="TitheDBModel.Tither">
+        <MappingFragment StoreEntitySet="Tither">
+          <ScalarProperty Name="TitherId" ColumnName="TitherId" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
+          <ScalarProperty Name="DateJoined" ColumnName="DateJoined" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Users">
+      <EntityTypeMapping TypeName="TitheDBModel.User">
+        <MappingFragment StoreEntitySet="Users">
+          <ScalarProperty Name="Active" ColumnName="Active" />
+          <ScalarProperty Name="IsAdmin" ColumnName="IsAdmin" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="Username" ColumnName="Username" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

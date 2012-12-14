@@ -1,0 +1,178 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="TitheDBModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityContainer Name="TitheDBModelStoreContainer">
+          <EntitySet Name="TitheLogs" EntityType="TitheDBModel.Store.TitheLogs" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Tither" EntityType="TitheDBModel.Store.Tither" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Users" EntityType="TitheDBModel.Store.Users" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK__TitheLogs__Tithe__08EA5793" Association="TitheDBModel.Store.FK__TitheLogs__Tithe__08EA5793">
+            <End Role="Tither" EntitySet="Tither" />
+            <End Role="TitheLogs" EntitySet="TitheLogs" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="TitheLogs">
+          <Key>
+            <PropertyRef Name="TitheLogId" />
+          </Key>
+          <Property Name="TitheLogId" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="TitheDate" Type="datetime" Nullable="false" />
+          <Property Name="DateEntered" Type="datetime" Nullable="false" />
+          <Property Name="TitheAmount" Type="decimal" Nullable="false" Precision="7" Scale="2" />
+          <Property Name="TitherId" Type="int" />
+        </EntityType>
+        <EntityType Name="Tither">
+          <Key>
+            <PropertyRef Name="TitherId" />
+          </Key>
+          <Property Name="TitherId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="LastName" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="FirstName" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="MiddleName" Type="varchar" MaxLength="100" />
+          <Property Name="DateJoined" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Username" Type="varchar" Nullable="false" MaxLength="20" />
+          <Property Name="Password" Type="varchar" Nullable="false" MaxLength="20" />
+          <Property Name="IsAdmin" Type="bit" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__TitheLogs__Tithe__08EA5793">
+          <End Role="Tither" Type="TitheDBModel.Store.Tither" Multiplicity="0..1" />
+          <End Role="TitheLogs" Type="TitheDBModel.Store.TitheLogs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tither">
+              <PropertyRef Name="TitherId" />
+            </Principal>
+            <Dependent Role="TitheLogs">
+              <PropertyRef Name="TitherId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="TitheDBModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityContainer Name="TitheDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="TitheLogs" EntityType="TitheDBModel.TitheLog" />
+          <EntitySet Name="Tithers" EntityType="TitheDBModel.Tither" />
+          <AssociationSet Name="FK__TitheLogs__Tithe__08EA5793" Association="TitheDBModel.FK__TitheLogs__Tithe__08EA5793">
+            <End Role="Tither" EntitySet="Tithers" />
+            <End Role="TitheLogs" EntitySet="TitheLogs" />
+          </AssociationSet>
+          <EntitySet Name="Users" EntityType="TitheDBModel.User" />
+        </EntityContainer>
+        <EntityType Name="TitheLog">
+          <Key>
+            <PropertyRef Name="TitheLogId" />
+          </Key>
+          <Property Name="TitheLogId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TitheDate" Type="DateTime" Nullable="false" />
+          <Property Name="DateEntered" Type="DateTime" Nullable="false" />
+          <Property Name="TitheAmount" Type="Decimal" Nullable="false" Precision="7" Scale="2" />
+          <Property Name="TitherId" Type="Int32" />
+          <NavigationProperty Name="Tither" Relationship="TitheDBModel.FK__TitheLogs__Tithe__08EA5793" FromRole="TitheLogs" ToRole="Tither" />
+        </EntityType>
+        <EntityType Name="Tither">
+          <Key>
+            <PropertyRef Name="TitherId" />
+          </Key>
+          <Property Name="TitherId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LastName" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="MiddleName" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="DateJoined" Type="DateTime" Nullable="false" />
+          <NavigationProperty Name="TitheLogs" Relationship="TitheDBModel.FK__TitheLogs__Tithe__08EA5793" FromRole="Tither" ToRole="TitheLogs" />
+        </EntityType>
+        <Association Name="FK__TitheLogs__Tithe__08EA5793">
+          <End Role="Tither" Type="TitheDBModel.Tither" Multiplicity="0..1" />
+          <End Role="TitheLogs" Type="TitheDBModel.TitheLog" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tither">
+              <PropertyRef Name="TitherId" />
+            </Principal>
+            <Dependent Role="TitheLogs">
+              <PropertyRef Name="TitherId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Type="Int32" Name="UserId" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Username" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Password" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="Boolean" Name="IsAdmin" Nullable="false" />
+          <Property Type="Boolean" Name="Active" Nullable="false" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="TitheDBModelStoreContainer" CdmEntityContainer="TitheDBEntities">
+          <EntitySetMapping Name="TitheLogs"><EntityTypeMapping TypeName="TitheDBModel.TitheLog"><MappingFragment StoreEntitySet="TitheLogs">
+            <ScalarProperty Name="TitheLogId" ColumnName="TitheLogId" />
+            <ScalarProperty Name="TitheDate" ColumnName="TitheDate" />
+            <ScalarProperty Name="DateEntered" ColumnName="DateEntered" />
+            <ScalarProperty Name="TitheAmount" ColumnName="TitheAmount" />
+            <ScalarProperty Name="TitherId" ColumnName="TitherId" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Tithers"><EntityTypeMapping TypeName="TitheDBModel.Tither"><MappingFragment StoreEntitySet="Tither">
+            <ScalarProperty Name="TitherId" ColumnName="TitherId" />
+            <ScalarProperty Name="LastName" ColumnName="LastName" />
+            <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+            <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
+            <ScalarProperty Name="DateJoined" ColumnName="DateJoined" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="TitheDBModel.User">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="IsAdmin" ColumnName="IsAdmin" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams>
+      <Diagram Name="TitheDbModel">
+        <EntityTypeShape EntityType="TitheDBModel.TitheLog" Width="1.5" PointX="3" PointY="0.875" Height="2.1725878906250005" IsExpanded="true" />
+        <EntityTypeShape EntityType="TitheDBModel.Tither" Width="1.5" PointX="0.75" PointY="0.875" Height="2.1725878906249996" IsExpanded="true" />
+        <AssociationConnector Association="TitheDBModel.FK__TitheLogs__Tithe__08EA5793" ManuallyRouted="false">
+          <ConnectorPoint PointX="2.25" PointY="1.9612939453124998" />
+          <ConnectorPoint PointX="3" PointY="1.9612939453124998" />
+        </AssociationConnector>
+        <EntityTypeShape EntityType="TitheDBModel.User" Width="1.5" PointX="0.75" PointY="4.75" Height="1.9802864583333335" />
+      </Diagram>
+    </Diagrams>
+  </Designer>
+</edmx:Edmx>
