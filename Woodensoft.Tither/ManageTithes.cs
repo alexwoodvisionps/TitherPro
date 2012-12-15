@@ -97,6 +97,7 @@ namespace Woodensoft.Tither
             try
             {
                 gvTithes.DataSource = logic.GetReportDetails(dpStart.Value, dpEnd.Value);
+                gvTithes.Columns[0].ReadOnly = false;
             }
             catch (Exception ex)
             {

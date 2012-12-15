@@ -31,6 +31,8 @@ namespace Woodensoft.Tither
             try
             {
                 gvTithers.DataSource = logic.GetAllTithers();
+                gvTithers.Columns[0].ReadOnly = true;
+                gvTithers.Columns[gvTithers.Columns.Count - 1].Visible = false;
             }
             catch (Exception ex)
             {
@@ -54,6 +56,8 @@ namespace Woodensoft.Tither
             {
                 logic.AddTither(txtFirstName.Text, txtLastName.Text, txtMiddleName.Text);
                 gvTithers.DataSource = logic.GetAllTithers();
+                gvTithers.Columns[0].ReadOnly = true;
+                gvTithers.Columns[gvTithers.Columns.Count - 1].Visible = false;
             }
             catch (Exception ex)
             {
@@ -68,6 +72,8 @@ namespace Woodensoft.Tither
             try
             {
                 gvTithers.DataSource = logic.RecommendTithers(txtFirstName.Text, txtLastName.Text);
+                gvTithers.Columns[0].ReadOnly = true;
+                gvTithers.Columns[gvTithers.Columns.Count - 1].Visible = false;
             }
             catch (Exception ex)
             {
@@ -89,14 +95,14 @@ namespace Woodensoft.Tither
                 return;
             }
             var logic = new Woodensoft.TitherPro.Core.BusinessLogic.BusinessLogic(ConfigurationManager.ConnectionStrings[Utilities.Constants.DbName].ConnectionString);
-
-            var allTithers = logic.GetAllTithers();
-            foreach (var tither in allTithers)
-            {
-                tither.TitheLogs = null;
-            }
-            try
-            {
+            try{
+                var allTithers = logic.GetAllTithers();
+                foreach (var tither in allTithers)
+                {
+            
+                    tither.TitheLogs = null;
+                }
+            
                 var titherFile = Utilities.ExcelExporter.Export(Utilities.ExcelExporter.ConvertToDataTable<TitherPro.Domain.Contexts.Tither>(allTithers, "Tithers"), "Tithers");
                 MessageBox.Show("Your file was exported to: " + System.IO.Path.GetFullPath(titherFile));
             }
