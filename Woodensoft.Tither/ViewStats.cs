@@ -18,37 +18,62 @@ namespace Woodensoft.Tither
 
         private void btnRun_Click(object sender, EventArgs e)
         {
-            Utilities.SessionValidator.ValidateSession(this, Woodensoft.TitherPro.Core.BusinessLogic.StateManager.Instance.GetUser());
-            var logic = new Woodensoft.TitherPro.Core.BusinessLogic.BusinessLogic(System.Configuration.ConfigurationManager.ConnectionStrings[Woodensoft.Tither.Utilities.Constants.DbName].ConnectionString);
-            var report = logic.GetReport(dpBegin.Value, dpEnd.Value);
-            if (report == null)
+            try
+            {
+                Utilities.SessionValidator.ValidateSession(this, Woodensoft.TitherPro.Core.BusinessLogic.StateManager.Instance.GetUser());
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("An Error Occurred: " + ex.Message);
                 return;
-            lblTotalTithes.Text = report.TotalTithes.ToString();
-            lblMostTithed.Text = report.MaxTithe.ToString();
-            lblLeastTithed.Text = report.MinTithe.ToString();
-            var sb = new StringBuilder();
-            if (report.MinTither != null)
+            } 
+            var logic = new Woodensoft.TitherPro.Core.BusinessLogic.BusinessLogic(System.Configuration.ConfigurationManager.ConnectionStrings[Woodensoft.Tither.Utilities.Constants.DbName].ConnectionString);
+            try
             {
-                var tither = report.MinTither;
+                var report = logic.GetReport(dpBegin.Value, dpEnd.Value);
+                if (report == null)
+                    return;
+                lblTotalTithes.Text = report.TotalTithes.ToString();
+                lblMostTithed.Text = report.MaxTithe.ToString();
+                lblLeastTithed.Text = report.MinTithe.ToString();
+                var sb = new StringBuilder();
+                if (report.MinTither != null)
                 {
-                    sb.Append(tither.LastName + "," + tither.FirstName + " " + tither.MiddleName ?? "" + Environment.NewLine);
+                    var tither = report.MinTither;
+                    {
+                        sb.Append(tither.LastName + "," + tither.FirstName + " " + tither.MiddleName ?? "" + Environment.NewLine);
+                    }
                 }
+                lblLeastTithers.Text = sb.ToString();
+                sb.Clear();
+                if (report.MaxTither != null)
+                {
+                    var tither = report.MaxTither;
+                    {
+                        sb.Append(tither.LastName + "," + tither.FirstName + " " + tither.MiddleName ?? "" + Environment.NewLine);
+                    }
+                }
+                lblBigTithers.Text = sb.ToString();
             }
-            lblLeastTithers.Text = sb.ToString();
-            sb.Clear();
-            if (report.MaxTither != null)
+            catch (Exception ex)
             {
-                var tither = report.MaxTither;
-                {
-                    sb.Append(tither.LastName + "," + tither.FirstName + " " + tither.MiddleName ?? "" + Environment.NewLine);
-                }
+                MessageBox.Show("An Error Occurred: " + ex.Message);
             }
-            lblBigTithers.Text = sb.ToString();
         }
 
         private void ViewStats_Load(object sender, EventArgs e)
         {
-            Utilities.SessionValidator.ValidateSession(this, Woodensoft.TitherPro.Core.BusinessLogic.StateManager.Instance.GetUser());
+            try
+            {
+                Utilities.SessionValidator.ValidateSession(this, Woodensoft.TitherPro.Core.BusinessLogic.StateManager.Instance.GetUser());
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("An Error Occurred: " + ex.Message);
+                return;
+            }
         }
     }
 }

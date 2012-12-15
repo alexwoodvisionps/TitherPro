@@ -18,7 +18,16 @@ namespace Woodensoft.Tither
 
         private void UserManager_Load(object sender, EventArgs e)
         {
-            Utilities.SessionValidator.ValidateSession(this, Woodensoft.TitherPro.Core.BusinessLogic.StateManager.Instance.GetUser());
+            try
+            {
+                Utilities.SessionValidator.ValidateSession(this, Woodensoft.TitherPro.Core.BusinessLogic.StateManager.Instance.GetUser());
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("An Error Occurred: " + ex.Message);
+                return;
+            } 
             var logic = new Woodensoft.TitherPro.Core.BusinessLogic.BusinessLogic(ConfigurationManager.ConnectionStrings[Utilities.Constants.DbName].ConnectionString);
             gvUsers.DataSource = logic.GetAllUsers();
             gvUsers.Columns[0].ReadOnly = true;
@@ -26,10 +35,26 @@ namespace Woodensoft.Tither
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            Utilities.SessionValidator.ValidateSession(this, Woodensoft.TitherPro.Core.BusinessLogic.StateManager.Instance.GetUser());
+            try
+            {
+                Utilities.SessionValidator.ValidateSession(this, Woodensoft.TitherPro.Core.BusinessLogic.StateManager.Instance.GetUser());
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("An Error Occurred: " + ex.Message);
+                return;
+            }
             var logic = new Woodensoft.TitherPro.Core.BusinessLogic.BusinessLogic(ConfigurationManager.ConnectionStrings[Utilities.Constants.DbName].ConnectionString);
-            logic.AddUser(txtUser.Text, txtPass.Text, cbxAdmin.Checked);
-            gvUsers.DataSource = logic.GetAllUsers();
+            try
+            {
+                logic.AddUser(txtUser.Text, txtPass.Text, cbxAdmin.Checked);
+                gvUsers.DataSource = logic.GetAllUsers();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("An Error Occurred: " + ex.Message);
+            }
         }
 
         private void gvUsers_CellEndEdit(object sender, DataGridViewCellEventArgs e)
@@ -57,8 +82,14 @@ namespace Woodensoft.Tither
                 }
             }
             var logic = new Woodensoft.TitherPro.Core.BusinessLogic.BusinessLogic(ConfigurationManager.ConnectionStrings[Utilities.Constants.DbName].ConnectionString);
-            logic.UpdateUser((int)row.Cells[0].Value, password, isAdmin, isActive);
-            
+            try
+            {
+                logic.UpdateUser((int)row.Cells[0].Value, password, isAdmin, isActive);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("An Error Occurred: " + ex.Message);
+            }
         }
     }
 }

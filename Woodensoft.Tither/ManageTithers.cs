@@ -18,30 +18,76 @@ namespace Woodensoft.Tither
 
         private void ManageTithers_Load(object sender, EventArgs e)
         {
-            Utilities.SessionValidator.ValidateSession(this, Woodensoft.TitherPro.Core.BusinessLogic.StateManager.Instance.GetUser());
-            var logic = new Woodensoft.TitherPro.Core.BusinessLogic.BusinessLogic(ConfigurationManager.ConnectionStrings[Utilities.Constants.DbName].ConnectionString);
-            gvTithers.DataSource = logic.GetAllTithers();
+            try
+            {
+                Utilities.SessionValidator.ValidateSession(this, Woodensoft.TitherPro.Core.BusinessLogic.StateManager.Instance.GetUser());
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("An Error Occurred: " + ex.Message);
+                return;
+            }
+                var logic = new Woodensoft.TitherPro.Core.BusinessLogic.BusinessLogic(ConfigurationManager.ConnectionStrings[Utilities.Constants.DbName].ConnectionString);
+            try
+            {
+                gvTithers.DataSource = logic.GetAllTithers();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("An Error Occurred: " + ex.Message);
+            }
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            Utilities.SessionValidator.ValidateSession(this, Woodensoft.TitherPro.Core.BusinessLogic.StateManager.Instance.GetUser());
+            try
+            {
+                Utilities.SessionValidator.ValidateSession(this, Woodensoft.TitherPro.Core.BusinessLogic.StateManager.Instance.GetUser());
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("An Error Occurred: " + ex.Message);
+                return;
+            }
             var logic = new Woodensoft.TitherPro.Core.BusinessLogic.BusinessLogic(ConfigurationManager.ConnectionStrings[Utilities.Constants.DbName].ConnectionString);
-            logic.AddTither(txtFirstName.Text, txtLastName.Text, txtMiddleName.Text);
-            gvTithers.DataSource = logic.GetAllTithers();
+            try
+            {
+                logic.AddTither(txtFirstName.Text, txtLastName.Text, txtMiddleName.Text);
+                gvTithers.DataSource = logic.GetAllTithers();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("An Error Occurred: " + ex.Message);
+            }
         }
 
         private void btnCheckDups_Click(object sender, EventArgs e)
         {
             Utilities.SessionValidator.ValidateSession(this, Woodensoft.TitherPro.Core.BusinessLogic.StateManager.Instance.GetUser());
             var logic = new Woodensoft.TitherPro.Core.BusinessLogic.BusinessLogic(ConfigurationManager.ConnectionStrings[Utilities.Constants.DbName].ConnectionString);
-            
-            gvTithers.DataSource = logic.RecommendTithers(txtFirstName.Text, txtLastName.Text);
+            try
+            {
+                gvTithers.DataSource = logic.RecommendTithers(txtFirstName.Text, txtLastName.Text);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("An Error Occurred: " + ex.Message);
+                return;
+            }
         }
 
         private void btnExport_Click(object sender, EventArgs e)
         {
-            Utilities.SessionValidator.ValidateSession(this, Woodensoft.TitherPro.Core.BusinessLogic.StateManager.Instance.GetUser());
+            try
+            {
+                Utilities.SessionValidator.ValidateSession(this, Woodensoft.TitherPro.Core.BusinessLogic.StateManager.Instance.GetUser());
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("An Error Occurred: " + ex.Message);
+                return;
+            }
             var logic = new Woodensoft.TitherPro.Core.BusinessLogic.BusinessLogic(ConfigurationManager.ConnectionStrings[Utilities.Constants.DbName].ConnectionString);
 
             var allTithers = logic.GetAllTithers();
@@ -62,9 +108,25 @@ namespace Woodensoft.Tither
 
         private void btnRefresh_Click(object sender, EventArgs e)
         {
-            Utilities.SessionValidator.ValidateSession(this, Woodensoft.TitherPro.Core.BusinessLogic.StateManager.Instance.GetUser());
+            try
+            {
+                Utilities.SessionValidator.ValidateSession(this, Woodensoft.TitherPro.Core.BusinessLogic.StateManager.Instance.GetUser());
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("An Error Occurred: " + ex.Message);
+                return;
+            }
             var logic = new Woodensoft.TitherPro.Core.BusinessLogic.BusinessLogic(ConfigurationManager.ConnectionStrings[Utilities.Constants.DbName].ConnectionString);
-            gvTithers.DataSource = logic.GetAllTithers();
+            try
+            {
+                gvTithers.DataSource = logic.GetAllTithers();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("An Error Occurred: " + ex.Message);
+            }
         }
     }
 }

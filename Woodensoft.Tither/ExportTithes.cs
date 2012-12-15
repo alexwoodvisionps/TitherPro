@@ -18,16 +18,40 @@ namespace Woodensoft.Tither
 
         private void btnRun_Click(object sender, EventArgs e)
         {
-            Utilities.SessionValidator.ValidateSession(this, Woodensoft.TitherPro.Core.BusinessLogic.StateManager.Instance.GetUser());
-            var logic = new Woodensoft.TitherPro.Core.BusinessLogic.BusinessLogic(System.Configuration.ConfigurationManager.ConnectionStrings[Utilities.Constants.DbName].ConnectionString);
-            var reportDetails = logic.GetReportDetails(dtStart.Value, dpEnd.Value);
-            gvReportDetails.DataSource = reportDetails;
+            try
+            {
+                Utilities.SessionValidator.ValidateSession(this, Woodensoft.TitherPro.Core.BusinessLogic.StateManager.Instance.GetUser());
 
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("An Error Occurred: " + ex.Message);
+                return;
+            } 
+            var logic = new Woodensoft.TitherPro.Core.BusinessLogic.BusinessLogic(System.Configuration.ConfigurationManager.ConnectionStrings[Utilities.Constants.DbName].ConnectionString);
+            try
+            {
+                var reportDetails = logic.GetReportDetails(dtStart.Value, dpEnd.Value);
+                gvReportDetails.DataSource = reportDetails;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("An Error Occurred: " + ex.Message);
+            }
         }
 
         private void btnExport_Click(object sender, EventArgs e)
         {
-            Utilities.SessionValidator.ValidateSession(this, Woodensoft.TitherPro.Core.BusinessLogic.StateManager.Instance.GetUser());
+            try
+            {
+                Utilities.SessionValidator.ValidateSession(this, Woodensoft.TitherPro.Core.BusinessLogic.StateManager.Instance.GetUser());
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("An Error Occurred: " + ex.Message);
+                return;
+            } 
             var logic = new Woodensoft.TitherPro.Core.BusinessLogic.BusinessLogic(System.Configuration.ConfigurationManager.ConnectionStrings[Utilities.Constants.DbName].ConnectionString);
             try
             {

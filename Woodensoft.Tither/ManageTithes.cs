@@ -18,7 +18,16 @@ namespace Woodensoft.Tither
 
         private void gvTithes_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            Utilities.SessionValidator.ValidateSession(this, Woodensoft.TitherPro.Core.BusinessLogic.StateManager.Instance.GetUser());
+            try
+            {
+                Utilities.SessionValidator.ValidateSession(this, Woodensoft.TitherPro.Core.BusinessLogic.StateManager.Instance.GetUser());
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("An Error Occurred: " + ex.Message);
+                return;
+            } 
             var logic = new Woodensoft.TitherPro.Core.BusinessLogic.BusinessLogic(ConfigurationManager.ConnectionStrings[Utilities.Constants.DbName].ConnectionString);
             
             if (e.ColumnIndex == gvTithes.ColumnCount - 1)
@@ -30,7 +39,16 @@ namespace Woodensoft.Tither
 
         private void btnExport_Click(object sender, EventArgs e)
         {
-            Utilities.SessionValidator.ValidateSession(this, Woodensoft.TitherPro.Core.BusinessLogic.StateManager.Instance.GetUser());
+            try
+            {
+                Utilities.SessionValidator.ValidateSession(this, Woodensoft.TitherPro.Core.BusinessLogic.StateManager.Instance.GetUser());
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("An Error Occurred: " + ex.Message);
+                return;
+            }
             var logic = new Woodensoft.TitherPro.Core.BusinessLogic.BusinessLogic(ConfigurationManager.ConnectionStrings[Utilities.Constants.DbName].ConnectionString);
 
             var allTithes = logic.GetAllTitherLogs(dpStart.Value, dpEnd.Value);
@@ -51,7 +69,16 @@ namespace Woodensoft.Tither
 
         private void ManageTithes_Load(object sender, EventArgs e)
         {
-            Utilities.SessionValidator.ValidateSession(this, Woodensoft.TitherPro.Core.BusinessLogic.StateManager.Instance.GetUser());
+            try
+            {
+                Utilities.SessionValidator.ValidateSession(this, Woodensoft.TitherPro.Core.BusinessLogic.StateManager.Instance.GetUser());
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("An Error Occurred: " + ex.Message);
+                return;
+            }
             var logic = new Woodensoft.TitherPro.Core.BusinessLogic.BusinessLogic(ConfigurationManager.ConnectionStrings[Utilities.Constants.DbName].ConnectionString);
 
             var allTithers = logic.GetAllTithers();
@@ -67,12 +94,28 @@ namespace Woodensoft.Tither
         private void BindData()
         {
             var logic = new Woodensoft.TitherPro.Core.BusinessLogic.BusinessLogic(ConfigurationManager.ConnectionStrings[Utilities.Constants.DbName].ConnectionString);
-            
-            gvTithes.DataSource = logic.GetReportDetails(dpStart.Value, dpEnd.Value);
+            try
+            {
+                gvTithes.DataSource = logic.GetReportDetails(dpStart.Value, dpEnd.Value);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("An Error Occurred: " + ex.Message);
+            }
         }
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            Utilities.SessionValidator.ValidateSession(this, Woodensoft.TitherPro.Core.BusinessLogic.StateManager.Instance.GetUser());
+
+            try
+            {
+                Utilities.SessionValidator.ValidateSession(this, Woodensoft.TitherPro.Core.BusinessLogic.StateManager.Instance.GetUser());
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("An Error Occurred: " + ex.Message);
+                return;
+            }
             var logic = new Woodensoft.TitherPro.Core.BusinessLogic.BusinessLogic(ConfigurationManager.ConnectionStrings[Utilities.Constants.DbName].ConnectionString);
             decimal amount;
             if(!decimal.TryParse(txtAmount.Text, out amount))
@@ -86,12 +129,30 @@ namespace Woodensoft.Tither
                 MessageBox.Show("Error: No Tither Was Selected!");
                 return;
             }
-            logic.AddTitheLog(dpTitheDate.Value, amount, titherId);
-            BindData();
+            try
+            {
+                logic.AddTitheLog(dpTitheDate.Value, amount, titherId);
+                BindData();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("An Error Occurred: " + ex.Message);
+                return;
+            }
         }
 
         private void btnSearch_Click(object sender, EventArgs e)
         {
+            try
+            {
+                Utilities.SessionValidator.ValidateSession(this, Woodensoft.TitherPro.Core.BusinessLogic.StateManager.Instance.GetUser());
+                
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("An Error Occurred: " + ex.Message);
+                return;
+            }
             BindData();
         }
     }

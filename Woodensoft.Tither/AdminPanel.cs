@@ -65,5 +65,10 @@ namespace Woodensoft.Tither
             ValidateUser();
             new ExportTithes().Show();
         }
+
+        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Dedicated To Anastasia Wood My Mom and Connie Davis my fiancee Copyright - Wooden Software Development Inc License: Your License Is Free, Expires: Never");
+        }
     }
 }
